@@ -4,10 +4,10 @@ clear all
 close all
 clc
 
-OSX = true; % true if I'm working on a mac
+OSX = false; % true if I'm working on a mac
 if OSX == false
-    fname = strcat('/media/jsolisl/DATA/ISBI_CELLTRACKING/2015/',...
-        'ChallengeDatasets/DIC-C2DH-HeLa/01/t000.tif');
+    fname = strcat('/media/jsolisl/DATA/ISBI_CELLTRACKING/2013/',...
+        'TRAINING/N2DH-GOWT1/01/t00.tif');
 else
 %     fname = strcat('~/Documents/propio/PhD/ISBI/ISBI_Challenge/',...
 %         'ChallengeDataSets/Fluo-N2DH-GOWT1/01/t000.tif');
@@ -15,7 +15,8 @@ fname = 'images/t000.tif';
 end
 %
 I= imread(fname);
-X = imfilter(I, fspecial('disk'));
+
+X = imfilter(I, fspecial('gaussian'));
 
 %[A, s] = waveletAnalysis(X);
 
@@ -33,7 +34,7 @@ Lrgb = label2rgb(L);
 figure, imagesc(Lrgb);
 title('Watershed transform of gradient magnitude (Lrgb)');
 
-se = strel('disk', 20);
+se = strel('diamond', 10);
 Io = imopen(X, se);
 figure
 imagesc(Io)
