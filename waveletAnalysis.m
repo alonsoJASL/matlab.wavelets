@@ -54,21 +54,26 @@ for k=1:length(S(:,1))-1
         end
         if nargout > 1
             str = strcat('A',num2str(count2));
-            stA.(str) = aux';
+            stA.(str) = aux;
             count2 = count2 + 1;
         end
         if count==1
-            A(Indx,Jndx) = aux';
+            try
+            A(Indx,Jndx) = aux;
+            catch
+                disp('oops');
+            end
+            
         else
             switch r
                 case 1
-                    A(Indx+S(k,1),Jndx) = aux';
+                    A(Indx+S(k,1),Jndx) = aux;
                 case 2 
-                    A(Indx,Jndx+S(k,2)) = aux';
+                    A(Indx,Jndx+S(k,2)) = aux;
                 case 3
                     Indx = Indx + S(k,1);
                     Jndx = Jndx + S(k,2);
-                    A(Indx,Jndx) = aux';
+                    A(Indx,Jndx) = aux;
             end
         end
     end
